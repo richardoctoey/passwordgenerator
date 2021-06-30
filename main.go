@@ -4,6 +4,7 @@ import (
     "strconv"
     "github.com/sethvargo/go-password/password"
     "github.com/gin-gonic/gin"
+    "flag"
 )
 
 func StringToInt(s string) int {
@@ -15,6 +16,8 @@ func StringToInt(s string) int {
 }
 
 func main() {
+    ginAddr := flag.String("addr", ":8080", "bind host address")
+    flag.Parse()
     r := gin.Default()
     r.GET("/ping", func(c *gin.Context) {
         c.JSON(200, gin.H{
@@ -55,5 +58,5 @@ func main() {
             "message": res,
         })
     })
-    r.Run()
+    r.Run(*ginAddr)
 }
